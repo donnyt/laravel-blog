@@ -11,7 +11,12 @@
 |
 */
 
-Route::get('/', function()
+//Route::get('index', 'IndexController@showIndex');
+Route::controller('/', 'BlogController');
+
+Route::model('post', 'Post');
+
+Route::get('post/{post}', function(Post $post)
 {
-	return View::make('hello');
+   echo $post->title;
 });
