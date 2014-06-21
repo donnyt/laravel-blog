@@ -12,7 +12,7 @@ class BlogController extends BaseController {
     public function getIndex()
     {
         $posts = Post::orderBy('id', 'desc')->paginate(10);
-        $posts->getEnvironment()->setViewName('pagination::simple');
+        $posts->getFactory()->setViewName('pagination::simple');
         $this->layout->title = 'Home Page | Laravel 4 Blog';
         $this->layout->main = View::make('home')->nest('content', 'index', compact('posts'));
     }
@@ -21,7 +21,7 @@ class BlogController extends BaseController {
     {
         $searchTerm = Input::get('s');
         $posts = Post::whereRaw('match(title, content) against(? in boolean mode)', [$searchTerm])->paginate(10);
-        $posts->getEnvironment()->setViewName('pagination::slider');
+        $posts->getFactory()->setViewName('pagination::slider');
         $posts->appends(['s'=>$searchTerm]);
         $this->layout->with('title', 'Search: '.$searchTerm);
         $this->layout->main = View::make('home')->nest('content', 'index', ($posts->isEmpty()) ? ['notFound' => true] : compact('posts'));
