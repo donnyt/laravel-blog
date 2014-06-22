@@ -2,8 +2,10 @@
 // file: app/models/Comment.php
 
 class Comment extends Eloquent {
-	
-	public function post()
+
+    protected $fillable = array('commenter', 'email', 'comment');
+
+    public function post()
 	{
 		return $this->belongsTo('Post');
 	}

@@ -27,7 +27,7 @@ class CommentController extends BaseController {
         if($valid->passes())
         {
             $comment = new Comment($comment);
-            $comment->approved = 'no';
+            $comment->approved = 0;
             $post->comments()->save($comment);
             return Redirect::to(URL::previous().'#reply')->with('success', 'Comment has been submitted and waiting for approval');
         } else
@@ -55,6 +55,6 @@ class CommentController extends BaseController {
         $comment->save();
         $comment->post->comment_count = Comment::where('post_id', '=', $comment->post->id)->where('approved', '=', '1')->count();
         $comment->post->save();
-        return Redirect::back()->with('success', 'Comment '. (($comment->approved === 'yes') ? 'Approved' : 'Disapproved'));
+        return Redirect::back()->with('success', 'Comment '. (($comment->approved === '1') ? 'Approved' : 'Disapproved'));
     }
 }

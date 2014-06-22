@@ -21,10 +21,10 @@ class PostController extends BaseController
     public function newPost()
     {
         $this->layout->title = 'New Post';
-        $this->layout->main = View::make('dash')->nest('content', 'posts.new)');
+        $this->layout->main = View::make('dash')->nest('content', 'posts.new');
     }
 
-    public function editPost()
+    public function editPost(Post $post)
     {
         $this->layout->title = 'Edit Post';
         $this->layout->main = View::make('dash')->nest('content', 'posts.edit', compact('post'));
